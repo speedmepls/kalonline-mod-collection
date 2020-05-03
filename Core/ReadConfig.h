@@ -1,6 +1,6 @@
 char ConfigCheck[50], ConfigClient[50], ConfigEngine[50], ConfigConfig[50],
      ConfigMConfig[50], ConfigEpk[50], SinCheck[50], PlayerCheck[50],
-     Active2ndPwd[50], ThiefActiveCheck[50], ShopRewardCheck[50], LicenseSerial[75];
+     Active2ndPwd[50], ThiefActiveCheck[50], ShopRewardCheck[50];
 std::string Door = "Hell", Door2 = "Hell", Door3 = "Hell", Door4 = "Hell",
             Door5 = "Hell", Door6 = "Hell", Door7 = "Hell", Door8 = "Hell";
 std::string ConfigCheckDB3 = "Hell", ConfigCheckDB4 = "Hell";
@@ -129,8 +129,6 @@ void ReadConfig()
             "./Skills/Shaman.txt");
     SHMGK = GetPrivateProfileIntA("GhostKnife", "PVPReduce", 1,
             "./Skills/Shaman.txt");
-    GetPrivateProfileStringA("License", "Serial", "UNKNOWN", LicenseSerial, 75,
-        "./Core.ini");
     ShopJewelIndex = GetPrivateProfileIntA("ItemShopIndex", "Jewel", 0,
             "./Configs/ItemShop.txt");
     ShopGoldIndex = GetPrivateProfileIntA("ItemShopIndex", "GoldKC", 0,
@@ -870,7 +868,7 @@ void ReadConfig()
             }
 
             if (sscanf(line,
-                    "(mix (prefix %d)(info %d)(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]'))",
+                    "(mix (prefix %d)(info %d)(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]'))",
                     &MixPrefix, &MixInfo, &mixnotice) == 3)
             {
                 MixConfigPrefix[MixPrefix] = 1;
@@ -893,7 +891,7 @@ void ReadConfig()
             char day[BUFSIZ], time[BUFSIZ], notice[BUFSIZ];
 
             if (sscanf(line,
-                    "(notice (day '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]')(time '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]')(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]'))",
+                    "(notice (day '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]')(time '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]')(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]'))",
                     &day, &time, &notice) == 3)
             {
                 AutoNoticeDay[time] = day;
@@ -1000,7 +998,7 @@ void ReadConfig()
             int MobIndex = 0, MobAmount = 0, MobMap = 0, MobX = 0, MobY = 0, MobDis = 0;
 
             if (sscanf(line,
-                    "(summon (index %d)(amount %d)(map %d)(x %d)(y %d)(disappear %d)(day '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]')(time '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]')(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]'))",
+                    "(summon (index %d)(amount %d)(map %d)(x %d)(y %d)(disappear %d)(day '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]')(time '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]')(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]'))",
                     &MobIndex, &MobAmount, &MobMap, &MobX, &MobY, &MobDis, &day, &time,
                     &notice) == 9)
             {
@@ -1107,7 +1105,7 @@ void ReadConfig()
             char rewardnotice[BUFSIZ];
 
             if (sscanf(line,
-                    "(reward (level %d)(class %d)(index %d)(prefix %d)(amount %d)(info %d)(attack %d)(magic %d)(toa %d)(upgrade %d)(defense %d)(evasion %d)(endurance %d)(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-£#$€]'))",
+                    "(reward (level %d)(class %d)(index %d)(prefix %d)(amount %d)(info %d)(attack %d)(magic %d)(toa %d)(upgrade %d)(defense %d)(evasion %d)(endurance %d)(msg '%[a-z | A-Z | 0-9/<>|.,~*;`:!^+%&=?_-Â£#$Â€]'))",
                     &Level, &Class, &Index, &Prefix, &Amount, &Info, &Attack, &Magic, &Toa,
                     &Upgrade, &Defense, &Evasion, &Endurance, &rewardnotice) == 14)
             {
@@ -1193,25 +1191,6 @@ void ReadConfig()
         }
 
         fclose(oItemShop);
-    }
-}
-
-void CoreFileCheck()
-{
-    std::fstream License;
-    License.open("Core.ini", std::ios_base::out | std::ios_base::in);
-    const char *HWID = EP_RegHardwareID();
-
-    if (License.is_open())
-    {
-        License.close();
-    } else {
-        License.clear();
-        License.open("Core.ini", std::ios_base::out);
-        License << "[License]" << std::endl;
-        License << "HWID = " << HWID << std::endl;
-        License << "Serial = " << std::endl;
-        License.close();
     }
 }
 
